@@ -36,49 +36,14 @@
  *            (The list can be found in http://edition.cnn.com/services/rss/)
  * @returns json list of items
  */
-function getStories(interest) {
-	path = getPath(interest);
+function getDetails() {
 	
 	var input = {
 	    method : 'get',
-	    returnedContentType : 'xml',
-	    path : path
+	    returnedContentType : 'json',
+	    path : 'users'
 	};
 	
 	
 	return WL.Server.invokeHttp(input);
 }
-/**
- * 
- * @param interest
- *            must be one of the following: world, africa, sport, technology, ...
- *            (The list can be found in http://edition.cnn.com/services/rss/)
- * @returns json list of items
- */
-function getStoriesFiltered(interest) {
-	path = getPath(interest);
-	
-	var input = {
-	    method : 'get',
-	    returnedContentType : 'xml',
-	    path : path,
-	    transformation : {
-		    type : 'xslFile',
-		    xslFile : 'filtered.xsl'
-	    }
-	};
-	
-	return WL.Server.invokeHttp(input);
-}
-
-
-
-function getPath(interest) {
-	if (interest == undefined || interest == '') {
-		interest = '';
-	}else {
-		interest = '_' + interest;
-	}
-	return 'rss/edition' + interest + '.rss';
-}
-
